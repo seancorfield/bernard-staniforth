@@ -31,8 +31,23 @@
 
 (comment
   (take 10 (erato))
+  (take 10 (drop 1500 (erato)))
   (def primes []) ; assume some fixed data here I don't have
   (= (drop 1 (take 156 primes)) (take 155 (erato)))
+  )
+
+(defn erato-filter
+  ([] (erato-filter (iterate inc 2)))
+  ([unfiltered]
+   (let [prime (first unfiltered)]
+     (cons prime
+           (lazy-seq
+            (erato-filter (remove #(zero? (mod % prime)) (rest unfiltered))))))))
+
+(comment
+  (take 10 (erato-filter))
+  (take 10 (drop 150 (erato-filter)))
+  (take 10 (drop 1500 (erato-filter)))
   )
 
 
