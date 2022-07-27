@@ -32,6 +32,19 @@
 
 (= (drop 1(take 156 primes)) (take 155 (erato))
 
+
+   
+(defn sqr-div 
+"inner div trial whilst sqr pos factor is up to number"
+  [ns posf facts]
+  (if (> (* posf posf) ns)
+    (if (not= ns 1) (conj facts ns) facts)
+    (if (zero? (mod ns posf)) ; (let [fl (conj facts posf)
+            (recur (/ ns posf) posf (conj facts posf))
+            (recur ns (+ posf 2) facts))))
+
+
+   
 (defn trial-division-sqr
 [num pos-factor flist]
 "Return a list of the prime factors for a natural number"
