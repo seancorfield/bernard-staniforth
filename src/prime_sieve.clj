@@ -20,14 +20,14 @@
     else enter key sum val(factor) for each sum & val
     remove orig found candidate entry"
   ([] (erato {} 2 '()))
-  ([sieve candidate facts]
+  ([sieve candidate factors]
    (if-let [candidate-factors (sieve candidate)]
      (let [sieve' (add-candidates sieve (map (partial + candidate) candidate-factors) candidate-factors candidate)]
        (erato sieve' (inc candidate) candidate-factors))
      (lazy-seq (cons candidate
                      (erato (assoc sieve (* candidate candidate) (list candidate))
                             (inc candidate)
-                            facts))))))
+                            factors))))))
 
 (comment
   (take 10 (erato))
